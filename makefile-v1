@@ -1,0 +1,21 @@
+CXX = g++
+CXXFLAGS = -I ~/local/include
+
+
+main.x: armadillo.o eigen.o gsl.o
+	$(CXX) armadillo-solve_default_lu_qr.cpp -o armadillo -larmadillo
+	$(CXX) $(CXXFLAGS) eigen-lu.cpp -o eigen
+	$(CXX) -L ~/local/lib/ $(CXXFLAGS) gsl_first_example.cpp -lgsl -lgslcblas
+
+
+armadillo.o: armadillo-solve_default_lu_qr.cpp
+	$(CXX) -c armadillo-solve_default_lu_qr.cpp 
+
+eigen.o: eigen-lu.cpp
+	$(CXX) $(CXXFLAGS) -c eigen-lu.cpp 
+
+gsl.o: gsl_first_example.cpp
+	$(CXX) $(CXXFLAGS) -c gsl_first_example.cpp 
+
+
+
